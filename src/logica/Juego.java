@@ -8,6 +8,7 @@ package logica;
  *
  * @author Santiago
  */
-public class Juego {
+public class Juego 
+{
     
 }
