@@ -4,10 +4,12 @@
  */
 package vista;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Santiago
  */
-public class VentanaJuego {
+public class VentanaJuego extends JFrame{
     
 }
