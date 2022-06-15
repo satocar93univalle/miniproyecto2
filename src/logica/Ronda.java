@@ -17,7 +17,13 @@ public class Ronda
     private int errores;
     
     //constructor
-    public Ronda() {}
+    public Ronda() {
+        this.puntuacion = 0;
+        this.vidas = 3;
+        this.aciertos = 0;
+        this.errores = 0;
+        
+    }
     
     // metodos
     public int getPuntuacion() {
@@ -50,5 +56,12 @@ public class Ronda
 
     public void setErrores(int errores) {
         this.errores = errores;
+    }
+    
+    public void reiniciarRonda() {
+        setPuntuacion(0);
+        setVidas(3);
+        setAciertos(0);
+        setErrores(0);
     }
 }

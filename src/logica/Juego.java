@@ -4,11 +4,18 @@
  */
 package logica;
 
+import java.util.ArrayList;
+import java.util.TimerTask;
+import java.util.Timer;
+
 /**
  *
  * @author Santiago
  */
-public class Juego 
-{
-    
+public class Juego {
+    private int dificultad;
+    private Ronda ronda;
+    private int numeroRonda;
+    ArrayList<Cubo> cubos;
+    ArrayList<Coordenada> coordenadas;
 }
