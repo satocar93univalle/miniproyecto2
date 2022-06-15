@@ -18,4 +18,13 @@ public class Juego {
     private int numeroRonda;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
+    
+    public Juego() {
+        ronda = new Ronda();
+        for (int i=0; i<3; i++) {
+            cubos.add(new Cubo());
+        }
+        
+        
+    }
 }
