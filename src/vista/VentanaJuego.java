@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import logica.Juego;
 
 /**
  *
@@ -35,7 +36,12 @@ public class VentanaJuego extends JFrame{
     private JLabel cubo7;
     private JLabel cubo8;
     
+    private Juego juego;
+    
     public VentanaJuego() {
+        
+        juego = new Juego();
+        
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setResizable(false);

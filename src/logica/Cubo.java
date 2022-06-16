@@ -13,10 +13,20 @@ import java.util.Random;
 public class Cubo {
     private String img;
     private int borde;
+    private Coordenada coordenada;
 
     public Cubo() {
         this.img = imgRandom();
         this.borde = 0;
+        this.coordenada = null;
+    }
+
+    public Coordenada getCoordenada() {
+        return coordenada;
+    }
+
+    public void setCoordenada(Coordenada coordenada) {
+        this.coordenada = coordenada;
     }
 
     public String getImg() {
