@@ -6,12 +6,16 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Insets;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import logica.Cubo;
 import logica.Juego;
 
 /**
@@ -19,7 +23,7 @@ import logica.Juego;
  * @author Santiago
  */
 public class VentanaJuego extends JFrame{
-    
+    // declaracion componentes
     private JLabel lblPuntuacion;
     private JLabel lblVidas;
     private JLabel vida1;
@@ -35,6 +39,9 @@ public class VentanaJuego extends JFrame{
     private JLabel cubo6;
     private JLabel cubo7;
     private JLabel cubo8;
+    
+    // inicializando iconos (imagenes)
+    final ImageIcon img1 = new ImageIcon(getClass().getResource("/imagenes/1.png"));
     
     private Juego juego;
     
@@ -98,14 +105,36 @@ public class VentanaJuego extends JFrame{
         btnElegir.setForeground(Color.decode("#023047"));
         panel.add(btnElegir);
         
-        // Cubos
-        cubo1 = new JLabel("Cubo 1", SwingConstants.CENTER);
-        cubo1.setBounds(101, 245, 110, 110);
-        cubo1.setOpaque(true);
-        cubo1.setBackground(Color.MAGENTA);
-        panel.add(cubo1);
+        
+//        renderCubo(cubo1, 0);
+        renderCubos(juego.getCubos());
         
         this.add(panel);
+    }
+    
+    public void renderCubo(JLabel cubo, int index) {
+        
+        
+        cubo = new JLabel();
+        cubo.setBounds(
+                juego.getCubos().get(index).getCoordenada().getX(),
+                juego.getCubos().get(index).getCoordenada().getY(),
+                110,
+                110
+        );
+        cubo.setIcon(new ImageIcon(juego.getCubos().get(index).getIcono().getImage().getScaledInstance(cubo.getWidth(), cubo.getHeight(), Image.SCALE_SMOOTH)));
+        panel.add(cubo);
+        
+        System.out.println(juego.getCubos().get(index).getCoordenada());
+        System.out.println(juego.getCubos().get(index).getIcono());
+        
+    }
+    
+    public void renderCubos(ArrayList<Cubo> cubos) {
+        for (int i=0; i<juego.getCubos().size(); i++) {
+            
+            renderCubo(new JLabel(), i);
+        }
     }
     
 }

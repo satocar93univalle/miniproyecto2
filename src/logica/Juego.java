@@ -41,11 +41,7 @@ public class Juego {
         
         asignarPosicionCubo();
         
-        // verificando por consola que no se repinen las posiciones asignadas a cada cubo
-        // esto para evitar que se superponga uno sobre otro en la ventana de juego
-        for (int i=0; i<cubos.size(); i++) {
-            System.out.println(cubos.get(i));
-        }
+        
         
     }
     
@@ -67,15 +63,15 @@ public class Juego {
     }
     
     public void asignarPosicionCubo() {
-        
+        // array para almacenar 8 numeros que representan los índices de arr coordenadas
         ArrayList<Integer> asignador = new ArrayList<>();
         for (int i=0; i<8; i++) {
             asignador.add(i);
         }
-        System.out.println("asignador original: "+asignador);
+        // alternar posiciones de asignador.
         Collections.shuffle(asignador);
-        System.out.println("asignador alternado: "+asignador);
         
+        // asignar coordenadas a los cubos de manera alternada sin repetir coords.
         for (int i=0; i<cubos.size(); i++) {
             cubos.get(i).setCoordenada(coordenadas.get(asignador.get(i)));
         }
@@ -83,6 +79,8 @@ public class Juego {
     }
     
     
+    
+    // Getters y Setters
     
     public int getDificultad() {
         return dificultad;
@@ -98,6 +96,54 @@ public class Juego {
 
     public void setNumeroDeRonda(int numeroDeRonda) {
         this.numeroDeRonda = numeroDeRonda;
+    }
+
+    public int getPuntuacion() {
+        return puntuacion;
+    }
+
+    public void setPuntuacion(int puntuacion) {
+        this.puntuacion = puntuacion;
+    }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
+    }
+
+    public int getAciertos() {
+        return aciertos;
+    }
+
+    public void setAciertos(int aciertos) {
+        this.aciertos = aciertos;
+    }
+
+    public int getErrores() {
+        return errores;
+    }
+
+    public void setErrores(int errores) {
+        this.errores = errores;
+    }
+
+    public ArrayList<Cubo> getCubos() {
+        return cubos;
+    }
+
+    public void setCubos(ArrayList<Cubo> cubos) {
+        this.cubos = cubos;
+    }
+
+    public ArrayList<Coordenada> getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(ArrayList<Coordenada> coordenadas) {
+        this.coordenadas = coordenadas;
     }
     
     

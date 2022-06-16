@@ -5,6 +5,7 @@
 package logica;
 
 import java.util.Random;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -14,13 +15,35 @@ public class Cubo {
     private String img;
     private int borde;
     private Coordenada coordenada;
-
+    private ImageIcon icono;
+    
+    // COnstructor
     public Cubo() {
         this.img = imgRandom();
+        this.icono = new ImageIcon(getClass().getResource("/imagenes/"+this.img+".png"));
         this.borde = 0;
         this.coordenada = null;
     }
 
+    
+    
+    // métodos
+    
+    // asigna numero random de imagen
+    public String imgRandom() {
+        Random random = new Random();
+        int number = random.nextInt(12) + 1;
+        return number+"";
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "{"+this.getCoordenada()+", imagen:"+this.img+", borde:"+getColorBorde();
+    }
+    
+    
+    // Getters y Setters
     public Coordenada getCoordenada() {
         return coordenada;
     }
@@ -33,8 +56,8 @@ public class Cubo {
         return img;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setImg() {
+        this.img = imgRandom();
     }
 
     public int getBorde() {
@@ -56,15 +79,14 @@ public class Cubo {
         }
         return color;
     }
-    
-    public String imgRandom() {
-        Random random = new Random();
-        int number = random.nextInt(12) + 1;
-        return number+"";
+
+    public ImageIcon getIcono() {
+        return icono;
+    }
+
+    public void setIcono(String img) {
+        this.icono = new ImageIcon(getClass().getResource("/img/"+this.img+".png"));
     }
     
-    @Override
-    public String toString() {
-        return "{"+this.getCoordenada()+", imagen:"+this.img+", borde:"+getColorBorde();
-    }
+    
 }
