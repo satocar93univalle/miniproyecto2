@@ -39,6 +39,11 @@ public class Juego {
         // inicializando coordenadas
         initCoordenadas();
         
+        asignarPosicionCubo();
+        for (int i=0; i<cubos.size(); i++) {
+            System.out.println(cubos.get(i).getCoordenada());
+        }
+        
     }
     
     // Métodos
@@ -63,20 +68,20 @@ public class Juego {
         ArrayList<Integer> coordenadasOcupadas = new ArrayList<>();
         
         // Recorre array de cubos 
-        for (int i=0; i<=cubos.size(); i++) {
+        for (int i=0; i<cubos.size(); i++) {
             Random random = new Random();
             // generar num random que representa un indice en array de coordenadas
-            int coordenadaAsignada = random.nextInt(8) + 1;
+            int coordenadaAsignada = random.nextInt(8);  // No incluye 8, ya que el ultimo indice es 8-1
             // validar que dicha coordenada random no esté repetida
             // es decir, que no esté en el arr coordenadasOcupadas
-            for (int j=0; j<=coordenadasOcupadas.size(); j++) {
-                if (coordenadaAsignada == coordenadasOcupadas.size()) {
+            for (int j=0; j<coordenadasOcupadas.size(); j++) {
+                if (coordenadaAsignada == coordenadasOcupadas.get(j)) {
                     // Si está repetida, reasignar otro número random
                     coordenadaAsignada = random.nextInt(8) + 1;
                 }
             }
             // asignar coordenada al cubo iterado
-            cubos.get(i).setCoordenada(coordenadas.get(i));
+            cubos.get(i).setCoordenada(coordenadas.get(coordenadaAsignada));
             // agregar id de la coordenada recien ocupada al arr coordenadasOcupadas
             coordenadasOcupadas.add(coordenadas.get(i).getId());
         }

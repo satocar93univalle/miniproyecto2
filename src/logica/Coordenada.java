@@ -75,7 +75,7 @@ public class Coordenada {
     
     @Override
     public String toString() {
-        return "Coordenada posicion "+this.getId();
+        return "Coordenada posicion "+this.getId()+" { x:"+this.x+", y:"+this.y+"}";
     }
     
 }
