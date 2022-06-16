@@ -15,16 +15,21 @@ import java.util.Timer;
 public class Juego {
     private int dificultad;
     private Ronda ronda;
-    private int numeroRonda;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
     
     public Juego() {
-        ronda = new Ronda();
         for (int i=0; i<3; i++) {
             cubos.add(new Cubo());
         }
         
-        
+        coordenadas.add(new Coordenada(101, 245, 110, 110, 1));
+        coordenadas.add(new Coordenada(223, 245, 110, 110, 2));
+        coordenadas.add(new Coordenada(467, 245, 110, 110, 3));
+        coordenadas.add(new Coordenada(589, 245, 110, 110, 4));
+        coordenadas.add(new Coordenada(345, 62, 110, 110, 5));
+        coordenadas.add(new Coordenada(345, 184, 110, 110, 6));
+        coordenadas.add(new Coordenada(345, 306, 110, 110, 7));
+        coordenadas.add(new Coordenada(345, 428, 110, 110, 8));
     }
 }

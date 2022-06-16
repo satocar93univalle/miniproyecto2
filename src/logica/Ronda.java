@@ -11,17 +11,14 @@ package logica;
 public class Ronda 
 {
     // atributos
-    private int puntuacion;
-    private int vidas;
-    private int aciertos;
-    private int errores;
+    private static int numeroDeRonda = 0;
+    private static int puntuacion = 0;
+    private static int vidas = 3;
+    private static int aciertos = 0;
+    private static int errores = 0;
     
     //constructor
     public Ronda() {
-        this.puntuacion = 0;
-        this.vidas = 3;
-        this.aciertos = 0;
-        this.errores = 0;
         
     }
     
@@ -31,7 +28,7 @@ public class Ronda
     }
 
     public void setPuntuacion(int puntuacion) {
-        this.puntuacion = puntuacion;
+        Ronda.puntuacion = puntuacion;
     }
 
     public int getVidas() {
@@ -39,7 +36,7 @@ public class Ronda
     }
 
     public void setVidas(int vidas) {
-        this.vidas = vidas;
+        Ronda.vidas = vidas;
     }
 
     public int getAciertos() {
@@ -47,7 +44,7 @@ public class Ronda
     }
 
     public void setAciertos(int aciertos) {
-        this.aciertos = aciertos;
+        Ronda.aciertos = aciertos;
     }
 
     public int getErrores() {
@@ -55,10 +52,21 @@ public class Ronda
     }
 
     public void setErrores(int errores) {
-        this.errores = errores;
+        Ronda.errores = errores;
+    }
+
+    public static int getNumeroDeRonda() {
+        return numeroDeRonda;
+    }
+
+    public static void setNumeroDeRonda(int numeroDeRonda) {
+        Ronda.numeroDeRonda = numeroDeRonda;
     }
     
-    public void reiniciarRonda() {
+    
+    
+ 
+    public void reiniciarEstadisticas() {
         setPuntuacion(0);
         setVidas(3);
         setAciertos(0);
