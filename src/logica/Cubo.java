@@ -45,11 +45,26 @@ public class Cubo {
         this.borde = borde;
     }
     
+    public String getColorBorde() {
+        String color = "";
+        switch(this.borde) {
+            case 0: color = "no"; break;
+            case 1: color =  "azul"; break;
+            case 2: color = "verde"; break;
+            case 3: color = "rojo"; break;
+            
+        }
+        return color;
+    }
+    
     public String imgRandom() {
         Random random = new Random();
         int number = random.nextInt(12) + 1;
         return number+"";
     }
     
-    
+    @Override
+    public String toString() {
+        return "{"+this.getCoordenada()+", imagen:"+this.img+", borde:"+getColorBorde();
+    }
 }

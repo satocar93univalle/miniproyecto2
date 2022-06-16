@@ -5,7 +5,7 @@
 package logica;
 
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.Collections;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -40,8 +40,11 @@ public class Juego {
         initCoordenadas();
         
         asignarPosicionCubo();
+        
+        // verificando por consola que no se repinen las posiciones asignadas a cada cubo
+        // esto para evitar que se superponga uno sobre otro en la ventana de juego
         for (int i=0; i<cubos.size(); i++) {
-            System.out.println(cubos.get(i).getCoordenada());
+            System.out.println(cubos.get(i));
         }
         
     }
@@ -64,27 +67,19 @@ public class Juego {
     }
     
     public void asignarPosicionCubo() {
-        // array para almacenar id's coordenadas que ya fueron asignados a cubos.
-        ArrayList<Integer> coordenadasOcupadas = new ArrayList<>();
         
-        // Recorre array de cubos 
-        for (int i=0; i<cubos.size(); i++) {
-            Random random = new Random();
-            // generar num random que representa un indice en array de coordenadas
-            int coordenadaAsignada = random.nextInt(8);  // No incluye 8, ya que el ultimo indice es 8-1
-            // validar que dicha coordenada random no esté repetida
-            // es decir, que no esté en el arr coordenadasOcupadas
-            for (int j=0; j<coordenadasOcupadas.size(); j++) {
-                if (coordenadaAsignada == coordenadasOcupadas.get(j)) {
-                    // Si está repetida, reasignar otro número random
-                    coordenadaAsignada = random.nextInt(8) + 1;
-                }
-            }
-            // asignar coordenada al cubo iterado
-            cubos.get(i).setCoordenada(coordenadas.get(coordenadaAsignada));
-            // agregar id de la coordenada recien ocupada al arr coordenadasOcupadas
-            coordenadasOcupadas.add(coordenadas.get(i).getId());
+        ArrayList<Integer> asignador = new ArrayList<>();
+        for (int i=0; i<8; i++) {
+            asignador.add(i);
         }
+        System.out.println("asignador original: "+asignador);
+        Collections.shuffle(asignador);
+        System.out.println("asignador alternado: "+asignador);
+        
+        for (int i=0; i<cubos.size(); i++) {
+            cubos.get(i).setCoordenada(coordenadas.get(asignador.get(i)));
+        }
+        
     }
     
     
