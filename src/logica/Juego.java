@@ -24,6 +24,7 @@ public class Juego {
     // variables de logica de juego
     private int dificultad;
     private boolean momentoCorrecto;
+    private boolean clickCorrecto;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
     
@@ -32,6 +33,7 @@ public class Juego {
     public Juego() {
         dificultad = 2500;
         momentoCorrecto = false;
+        clickCorrecto = false;
         numeroDeRonda = 0;
         cubos = new ArrayList<>();
         coordenadas = new ArrayList<>();
@@ -155,6 +157,15 @@ public class Juego {
     public void setMomentoCorrecto(boolean momentoCorrecto) {
         this.momentoCorrecto = momentoCorrecto;
     }
+
+    public boolean isClickCorrecto() {
+        return clickCorrecto;
+    }
+
+    public void setClickCorrecto(boolean clickCorrecto) {
+        this.clickCorrecto = clickCorrecto;
+    }
+    
     
     
 }   

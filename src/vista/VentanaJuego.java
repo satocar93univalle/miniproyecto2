@@ -45,7 +45,6 @@ public class VentanaJuego extends JFrame{
     private ArrayList<JLabel> lblCubos;
 
     private Timer t;
-    private Timer u;
     
     // inicializando iconos (imagenes)
     final ImageIcon img1 = new ImageIcon(getClass().getResource("/imagenes/1.png"));
@@ -128,12 +127,13 @@ public class VentanaJuego extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 juego.setMomentoCorrecto(false);
                 cambiarImagenCubo();
-                if (verificarIgualdad()) {
+                verificarIgualdad();
+                
+                if (juego.isClickCorrecto()== true) {
                     
-                    // agrega cubo
-                } else {
-                    // PENDIENTE
-                    // quita cubo quita vida
+                    // AQUÍ VA CÓDIGO PARA AUMENTAR UN CUBO
+                    
+                    juego.setClickCorrecto(false);
                 }
             }
             
@@ -165,7 +165,7 @@ public class VentanaJuego extends JFrame{
         
         for (int i=0; i<juego.getCubos().size(); i++) {
             lblCubos.add(renderCubo(new JLabel(), i));
-            add(lblCubos.get(i));
+            panel.add(lblCubos.get(i));
         }
     }
     
@@ -225,6 +225,10 @@ public class VentanaJuego extends JFrame{
         t.setDelay(5000);
     }
     
+    public void detenerEjecucion(int tiempoDelay) {
+        
+    }
+    
     class ManejadorEventos implements KeyListener, MouseListener {
 
         @Override
@@ -269,6 +273,7 @@ public class VentanaJuego extends JFrame{
             if (juego.isMomentoCorrecto()) {
                     System.out.println("ACERTASTE");
                     ganarRonda();
+                    juego.setClickCorrecto(true);
                     juego.setMomentoCorrecto(false);
                     
                 } else {
