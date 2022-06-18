@@ -4,10 +4,16 @@
  */
 package vista;
 
+import logica.Cubo;
+
 /**
  *
  * @author Santiago
  */
 public class Main {
-    
+    public static void main(String[] args) {
+        //Cubo unCubo = new Cubo();
+        
+        VentanaJuego pruebaVentanaJuego = new VentanaJuego();
+    }
 }
