@@ -23,12 +23,15 @@ public class Juego {
     
     // variables de logica de juego
     private int dificultad;
+    private boolean momentoCorrecto;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
     
     // Constructor
     
     public Juego() {
+        dificultad = 2500;
+        momentoCorrecto = false;
         numeroDeRonda = 0;
         cubos = new ArrayList<>();
         coordenadas = new ArrayList<>();
@@ -143,6 +146,14 @@ public class Juego {
 
     public void setCoordenadas(ArrayList<Coordenada> coordenadas) {
         this.coordenadas = coordenadas;
+    }
+
+    public boolean isMomentoCorrecto() {
+        return momentoCorrecto;
+    }
+
+    public void setMomentoCorrecto(boolean momentoCorrecto) {
+        this.momentoCorrecto = momentoCorrecto;
     }
     
     

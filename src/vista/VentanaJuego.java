@@ -10,8 +10,13 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.border.Border;
 import logica.Cubo;
 import logica.Juego;
 
@@ -39,6 +45,7 @@ public class VentanaJuego extends JFrame{
     private ArrayList<JLabel> lblCubos;
 
     private Timer t;
+    private Timer u;
     
     // inicializando iconos (imagenes)
     final ImageIcon img1 = new ImageIcon(getClass().getResource("/imagenes/1.png"));
@@ -106,18 +113,28 @@ public class VentanaJuego extends JFrame{
         panel.add(btnElegir);
         
         
-//        renderCubo(cubo1, 0);
         lblCubos = new ArrayList<>();
         renderCubos(juego.getCubos());
         
         this.add(panel);
         
+        // eventos
+        btnElegir.addMouseListener(new ManejadorEventos());
+        btnElegir.addKeyListener(new ManejadorEventos());
         
         // configuración del timer
-        t = new Timer(7000, new ActionListener(){
+        t = new Timer(juego.getDificultad(), new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                juego.setMomentoCorrecto(false);
                 cambiarImagenCubo();
+                if (verificarIgualdad()) {
+                    
+                    // agrega cubo
+                } else {
+                    // PENDIENTE
+                    // quita cubo quita vida
+                }
             }
             
         });
@@ -157,9 +174,110 @@ public class VentanaJuego extends JFrame{
         Random random = new Random();
         int cuboCambiar = random.nextInt(juego.getCubos().size());
         juego.getCubos().get(cuboCambiar).setIcono();
-        lblCubos.get(cuboCambiar).setIcon(juego.getCubos().get(cuboCambiar).getIcono());
+        lblCubos.get(cuboCambiar).setIcon(new ImageIcon(juego.getCubos().get(cuboCambiar).getIcono().getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH)));
         System.out.println("paso el tiempo");
+        refrescarCubos();
+        // cambio color borde
+        juego.getCubos().get(cuboCambiar).setBorde(1);
+        lblCubos.get(cuboCambiar).setBorder(BorderFactory.createLineBorder(Color.CYAN, 4, true));
+        
         
     }
+    
+    public void refrescarCubos() {
+        for (int i=0; i<lblCubos.size(); i++) {
+            juego.getCubos().get(i).setBorde(0);
+            lblCubos.get(i).setBorder(null);
+        }
+    }
+    
+    public boolean verificarIgualdad()
+    {
+        boolean aux = false;
+        
+        for(int i=0; i<juego.getCubos().size()-1 ; i++)
+        {
+            for(int j=i+1; j<juego.getCubos().size(); j++)
+            {
+                if (juego.getCubos().get(i).getImg() == juego.getCubos().get(j).getImg()) {
+                    System.out.println("Imagen repetida");
+                    juego.setMomentoCorrecto(true);
+                    aux = true;
+                } 
+            }
+        }
+        return aux;
+    }
+    
+    
+    public void ganarRonda() {
+        for (int i=0; i < juego.getCubos().size() ; i++) {
+                juego.getCubos().get(i).setBorde(2);
+                lblCubos.get(i).setBorder(BorderFactory.createLineBorder(Color.GREEN, 4, true));
+        }
+        
+    }
+    public void perderRonda() {
+        for (int i=0; i < juego.getCubos().size() ; i++) {
+                juego.getCubos().get(i).setBorde(3);
+                lblCubos.get(i).setBorder(BorderFactory.createLineBorder(Color.RED, 4, true));
+            }
+        t.setDelay(5000);
+    }
+    
+    class ManejadorEventos implements KeyListener, MouseListener {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 32) {
+                auxEvento();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getSource() == btnElegir) {
+                auxEvento();
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+        }
+        
+        public void auxEvento() {
+            if (juego.isMomentoCorrecto()) {
+                    System.out.println("ACERTASTE");
+                    ganarRonda();
+                    juego.setMomentoCorrecto(false);
+                    
+                } else {
+                    System.out.println("FALLASTE");
+                }
+        }
+        
+    }
+    
+    
     
 }

@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class Cubo {
     private int borde;
+    private int img;
     private Coordenada coordenada;
     private ImageIcon icono;
     
@@ -30,8 +31,8 @@ public class Cubo {
     // asigna numero random de imagen
     private String imgRandom() {
         Random random = new Random();
-        int number = random.nextInt(12) + 1;
-        return "src/imagenes/"+number+".png";
+        img = random.nextInt(12) + 1;
+        return "src/imagenes/"+img+".png";
     }
     
     @Override
@@ -80,5 +81,14 @@ public class Cubo {
     public void setIcono() {
         this.icono = new ImageIcon(imgRandom());
     }
-      
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
+    }
+    
+    
 }
