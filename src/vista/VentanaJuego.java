@@ -106,7 +106,6 @@ public class VentanaJuego extends JFrame{
         panel.add(btnElegir);
         
         
-//        renderCubo(cubo1, 0);
         renderCubos(juego.getCubos());
         
         this.add(panel);
