@@ -12,7 +12,7 @@ import logica.Cubo;
  */
 public class Main {
     public static void main(String[] args) {
-        Cubo unCubo = new Cubo();
+        //Cubo unCubo = new Cubo();
         
         VentanaJuego pruebaVentanaJuego = new VentanaJuego();
     }

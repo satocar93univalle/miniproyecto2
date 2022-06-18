@@ -79,7 +79,6 @@ public class Juego {
     }
     
     
-    
     // Getters y Setters
     
     public int getDificultad() {

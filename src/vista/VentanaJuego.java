@@ -8,13 +8,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 import logica.Cubo;
 import logica.Juego;
 
@@ -31,14 +36,9 @@ public class VentanaJuego extends JFrame{
     private JLabel vida3;
     private JButton btnElegir;
     private JPanel panel;
-    private JLabel cubo1;
-    private JLabel cubo2;
-    private JLabel cubo3;
-    private JLabel cubo4;
-    private JLabel cubo5;
-    private JLabel cubo6;
-    private JLabel cubo7;
-    private JLabel cubo8;
+    private ArrayList<JLabel> lblCubos;
+
+    private Timer t;
     
     // inicializando iconos (imagenes)
     final ImageIcon img1 = new ImageIcon(getClass().getResource("/imagenes/1.png"));
@@ -107,14 +107,26 @@ public class VentanaJuego extends JFrame{
         
         
 //        renderCubo(cubo1, 0);
+        lblCubos = new ArrayList<>();
         renderCubos(juego.getCubos());
         
         this.add(panel);
+        
+        
+        // configuración del timer
+        t = new Timer(7000, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cambiarImagenCubo();
+            }
+            
+        });
+        
+        // iniciar tiempo
+        t.start();
     }
     
-    public void renderCubo(JLabel cubo, int index) {
-        
-        
+    public JLabel renderCubo(JLabel cubo, int index) {
         cubo = new JLabel();
         cubo.setBounds(
                 juego.getCubos().get(index).getCoordenada().getX(),
@@ -123,18 +135,31 @@ public class VentanaJuego extends JFrame{
                 110
         );
         cubo.setIcon(new ImageIcon(juego.getCubos().get(index).getIcono().getImage().getScaledInstance(cubo.getWidth(), cubo.getHeight(), Image.SCALE_SMOOTH)));
-        panel.add(cubo);
+        
         
         System.out.println(juego.getCubos().get(index).getCoordenada());
         System.out.println(juego.getCubos().get(index).getIcono());
         
+        return cubo;
+        
     }
     
     public void renderCubos(ArrayList<Cubo> cubos) {
+        
         for (int i=0; i<juego.getCubos().size(); i++) {
-            
-            renderCubo(new JLabel(), i);
+            lblCubos.add(renderCubo(new JLabel(), i));
+            add(lblCubos.get(i));
         }
+    }
+    
+    public void cambiarImagenCubo()
+    {
+        Random random = new Random();
+        int cuboCambiar = random.nextInt(juego.getCubos().size());
+        juego.getCubos().get(cuboCambiar).setIcono();
+        lblCubos.get(cuboCambiar).setIcon(juego.getCubos().get(cuboCambiar).getIcono());
+        System.out.println("paso el tiempo");
+        
     }
     
 }

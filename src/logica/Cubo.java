@@ -4,6 +4,8 @@
  */
 package logica;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.ImageIcon;
 
@@ -12,34 +14,29 @@ import javax.swing.ImageIcon;
  * @author Santiago
  */
 public class Cubo {
-    private String img;
     private int borde;
     private Coordenada coordenada;
     private ImageIcon icono;
     
     // COnstructor
     public Cubo() {
-        this.img = imgRandom();
-        this.icono = new ImageIcon(getClass().getResource("/imagenes/"+this.img+".png"));
+        this.icono = new ImageIcon(imgRandom());
         this.borde = 0;
         this.coordenada = null;
     }
-
-    
-    
+      
     // métodos
     
     // asigna numero random de imagen
-    public String imgRandom() {
+    private String imgRandom() {
         Random random = new Random();
         int number = random.nextInt(12) + 1;
-        return number+"";
+        return "src/imagenes/"+number+".png";
     }
-    
     
     @Override
     public String toString() {
-        return "{"+this.getCoordenada()+", imagen:"+this.img+", borde:"+getColorBorde();
+        return "{"+this.getCoordenada()+", borde:"+getColorBorde();
     }
     
     
@@ -51,15 +48,7 @@ public class Cubo {
     public void setCoordenada(Coordenada coordenada) {
         this.coordenada = coordenada;
     }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg() {
-        this.img = imgRandom();
-    }
-
+    
     public int getBorde() {
         return borde;
     }
@@ -85,8 +74,11 @@ public class Cubo {
     }
 
     public void setIcono(String img) {
-        this.icono = new ImageIcon(getClass().getResource("/img/"+this.img+".png"));
+        this.icono = new ImageIcon(getClass().getResource("/img/"+img+".png"));
     }
     
-    
+    public void setIcono() {
+        this.icono = new ImageIcon(imgRandom());
+    }
+      
 }
