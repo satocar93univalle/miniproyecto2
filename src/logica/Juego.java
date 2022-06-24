@@ -52,11 +52,13 @@ public class Juego {
     
     // Métodos
     public void nuevaRonda() {
-        if(rondaGanada && cubos.size() < 8)
+        if(rondaGanada && cubos.size() < 8) {
             agregarCubo();
+        }    
         
-        if(!rondaGanada && cubos.size() > 3)
+        else if(cubos.size() > 3) {
             eliminarCubo();
+        }    
         
         cambiarBordeTodosCubos(null);
         initCoordenadas();
@@ -119,7 +121,7 @@ public class Juego {
     }
     
     public void eliminarCubo(){
-        cubos.remove(cubos.size()-1);
+        cubos.remove(0);
     }
     
     public void cambiarImagenCuboAleatorio(){
@@ -151,7 +153,7 @@ public class Juego {
     }
     
     public void perderRonda(){
-        errores--;
+        errores++;
         vidas--;
         cambiarBordeTodosCubos(BorderFactory.
                 createLineBorder(Color.RED, 4, true));
