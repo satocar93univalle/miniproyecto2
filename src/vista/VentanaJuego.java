@@ -143,8 +143,19 @@ public class VentanaJuego extends JFrame{
         timers.get(0).schedule(new TimerTask(){
                 @Override
                 public void run() {
-                    juego.cambiarImagenCuboAleatorio();
-                    renderCubos();
+                    if(juego.isRondaAnteriorIguales()){
+                        juego.perderRonda();
+                        renderCubos();
+                        pausarTiempoAntesDeNuevaRonda();
+                        juego.setRondaAnteriorIguales(false);
+                    } else {
+                        juego.cambiarImagenCuboAleatorio();
+                        renderCubos();
+                        
+                        if(juego.imagenesIguales()){
+                            juego.setRondaAnteriorIguales(true);
+                        }
+                    }
                 }
 
             }, 1500, 1500);
@@ -214,11 +225,27 @@ public class VentanaJuego extends JFrame{
         
     }
     
+    public void ComparacionBotonPresionado(){
+        
+        if(juego.imagenesIguales()){
+            juego.ganarRonda();
+            juego.setRondaAnteriorIguales(false);
+        } 
+        else{
+            juego.perderRonda();
+            juego.setRondaAnteriorIguales(false);
+        }
+        
+        renderCubos();
+        pausarTiempoAntesDeNuevaRonda();
+    }
+    
+    
     private class ManejadorEventos implements KeyListener, MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        metodoAuxiliar();
+        ComparacionBotonPresionado();
     }
 
     @Override
@@ -235,7 +262,7 @@ public class VentanaJuego extends JFrame{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        metodoAuxiliar();
+        ComparacionBotonPresionado();
     }
 
     @Override
@@ -244,18 +271,7 @@ public class VentanaJuego extends JFrame{
     @Override
     public void keyReleased(KeyEvent e) {}
     
-    public void metodoAuxiliar(){
-        
-        if(juego.imagenesIguales()){
-            juego.ganarRonda();
-        } else{
-            juego.perderRonda();
-        }
-        
-        renderCubos();
-        pausarTiempoAntesDeNuevaRonda();
-    }
-
+    
 }
 }// fin de la clase VentanaJuego
 

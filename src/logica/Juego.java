@@ -26,6 +26,7 @@ public class Juego {
     private int errores;
     private int dificultad;
     private boolean rondaGanada;
+    private boolean rondaAnteriorIguales;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
     ArrayList<ImageIcon> imagenes;
@@ -56,7 +57,7 @@ public class Juego {
         
         if(!rondaGanada && cubos.size() > 3)
             eliminarCubo();
-
+        
         cambiarBordeTodosCubos(null);
         initCoordenadas();
         initImagenes();
@@ -80,7 +81,7 @@ public class Juego {
         for(int i=1; i<=12; i++){
             imagenes.add(new ImageIcon("src/imagenes/"+i+".png"));
         }
-    }
+    } 
     
     public void asignarPosicionCubo() {
         // array para almacenar 8 numeros que representan los índices de arr coordenadas
@@ -164,13 +165,20 @@ public class Juego {
         {
             for(int j=i+1; j<cubos.size(); j++)
             {
-                if (cubos.get(i).getNumImg() == cubos.get(j).getNumImg()) {
+                if (cubos.get(i).getIcono().toString().equals(cubos.get(j).getIcono().toString())) {
                     aux = true;
                     break;
                 } 
             }
         }
         return aux;
+    }
+    
+    public void comprobacionRondaAnteriorIguales(){
+        if(rondaAnteriorIguales){
+            rondaGanada = false;
+            nuevaRonda();
+        }
     }
     
     // Getters y Setters
@@ -237,6 +245,14 @@ public class Juego {
 
     public void setRondaGanada(boolean rondaGanada) {
         this.rondaGanada = rondaGanada;
+    }
+
+    public boolean isRondaAnteriorIguales() {
+        return rondaAnteriorIguales;
+    }
+
+    public void setRondaAnteriorIguales(boolean rondaAnteriorIguales) {
+        this.rondaAnteriorIguales = rondaAnteriorIguales;
     }
     
 }   
