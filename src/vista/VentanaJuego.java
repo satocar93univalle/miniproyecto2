@@ -132,7 +132,7 @@ public class VentanaJuego extends JFrame{
     
     public void iniciarRonda(){
         juego.nuevaRonda();
-        limpiearLabelCubos();
+        limpiarLabelCubos();
         renderImagen();
         reiniciarTiempo();
     }
@@ -239,14 +239,13 @@ public class VentanaJuego extends JFrame{
         pausarTiempoAntesDeNuevaRonda();
     }
     
-    public void limpiearLabelCubos(){
+    public void limpiarLabelCubos(){
         for(int i=0 ; i<lblCubos.size() ; i++){
             lblCubos.get(i).setIcon(new ImageIcon(""));
             lblCubos.get(i).setBorder(null);
         }
     }
-    
-    
+      
     private class ManejadorEventos implements KeyListener, MouseListener{
 
     @Override
