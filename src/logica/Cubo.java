@@ -17,7 +17,6 @@ import javax.swing.border.Border;
  * @author Santiago
  */
 public class Cubo {
-    private int numImg;
     private Border borde;
     private Coordenada coordenada;
     private ImageIcon icono;
@@ -33,7 +32,6 @@ public class Cubo {
     private String imgRandom() {
         Random random = new Random();
         int number = random.nextInt(12) + 1;
-        numImg = number;
         return "src/imagenes/"+number+".png";
     }
     
@@ -70,14 +68,6 @@ public class Cubo {
 
     public void setBorde(Border borde) {
         this.borde = borde;
-    }
-
-    public int getNumImg() {
-        return numImg;
-    }
-
-    public void setNumImg(int numImg) {
-        this.numImg = numImg;
     }
 
 }

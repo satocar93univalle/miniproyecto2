@@ -174,13 +174,6 @@ public class Juego {
         return aux;
     }
     
-    public void comprobacionRondaAnteriorIguales(){
-        if(rondaAnteriorIguales){
-            rondaGanada = false;
-            nuevaRonda();
-        }
-    }
-    
     // Getters y Setters
     
     public int getDificultad() {
