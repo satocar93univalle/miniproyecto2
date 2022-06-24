@@ -57,7 +57,8 @@ public class Juego {
         
         if(!rondaGanada && cubos.size() > 3)
             eliminarCubo();
-        
+       
+        rondaAnteriorIguales = false;
         cambiarBordeTodosCubos(null);
         initCoordenadas();
         initImagenes();
@@ -119,7 +120,7 @@ public class Juego {
     }
     
     public void eliminarCubo(){
-        cubos.remove(cubos.size()-1);
+        cubos.remove(0);
     }
     
     public void cambiarImagenCuboAleatorio(){
@@ -151,7 +152,7 @@ public class Juego {
     }
     
     public void perderRonda(){
-        errores--;
+        errores++;
         vidas--;
         cambiarBordeTodosCubos(BorderFactory.
                 createLineBorder(Color.RED, 4, true));

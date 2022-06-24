@@ -132,6 +132,7 @@ public class VentanaJuego extends JFrame{
     
     public void iniciarRonda(){
         juego.nuevaRonda();
+        limpiearLabelCubos();
         renderImagen();
         reiniciarTiempo();
     }
@@ -145,9 +146,9 @@ public class VentanaJuego extends JFrame{
                 public void run() {
                     if(juego.isRondaAnteriorIguales()){
                         juego.perderRonda();
+                        lblCubos.get(0).setIcon(null);
                         renderCubos();
                         pausarTiempoAntesDeNuevaRonda();
-                        juego.setRondaAnteriorIguales(false);
                     } else {
                         juego.cambiarImagenCuboAleatorio();
                         renderCubos();
@@ -229,15 +230,20 @@ public class VentanaJuego extends JFrame{
         
         if(juego.imagenesIguales()){
             juego.ganarRonda();
-            juego.setRondaAnteriorIguales(false);
         } 
         else{
             juego.perderRonda();
-            juego.setRondaAnteriorIguales(false);
         }
         
         renderCubos();
         pausarTiempoAntesDeNuevaRonda();
+    }
+    
+    public void limpiearLabelCubos(){
+        for(int i=0 ; i<lblCubos.size() ; i++){
+            lblCubos.get(i).setIcon(new ImageIcon(""));
+            lblCubos.get(i).setBorder(null);
+        }
     }
     
     
