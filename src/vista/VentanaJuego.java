@@ -10,6 +10,10 @@ import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -19,7 +23,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.border.Border;
 import logica.Cubo;
 import logica.Juego;
 
@@ -40,24 +48,21 @@ public class VentanaJuego extends JFrame{
 
     private Timer t;
     
-    // inicializando iconos (imagenes)
-    final ImageIcon img1 = new ImageIcon(getClass().getResource("/imagenes/1.png"));
-    
     private Juego juego;
     
     public VentanaJuego() {
         
         juego = new Juego();
         
-        this.setSize(800, 600);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(800, 600);
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         initComponents();
         this.setVisible(true);
     }
     
-    public void initComponents() {
+    private void initComponents() {
         
         // panel
         panel = new JPanel();
@@ -66,7 +71,8 @@ public class VentanaJuego extends JFrame{
         
         
         // Puntuación
-        lblPuntuacion = new JLabel("Puntuacion 0000");
+        lblPuntuacion = new JLabel("Puntuacion: "+ String.format(
+                String.format("%%0%dd", 5),juego.getPuntuacion()));
         lblPuntuacion.setBounds(30, 30, 255, 39);
         lblPuntuacion.setFont(new Font("Arial", 1, 32));
         lblPuntuacion.setForeground(Color.decode("#8ECAE6"));
@@ -106,60 +112,127 @@ public class VentanaJuego extends JFrame{
         panel.add(btnElegir);
         
         
-//        renderCubo(cubo1, 0);
+//      // creando y añadiendo al panel todos los labels
         lblCubos = new ArrayList<>();
-        renderCubos(juego.getCubos());
+        for(int i=0 ; i<8 ; i++){
+            lblCubos.add(new JLabel());
+            panel.add(lblCubos.get(i));
+        }
         
-        this.add(panel);
+        btnElegir.addKeyListener(new ManejadorEventos());
+        btnElegir.addMouseListener(new ManejadorEventos());
         
+        // creando el timer
+        t = new Timer();
+        iniciarTiempo();
         
-        // configuración del timer
-        t = new Timer(7000, new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cambiarImagenCubo();
-            }
-            
-        });
-        
-        // iniciar tiempo
-        t.start();
+        add(panel);
     }
     
-    public JLabel renderCubo(JLabel cubo, int index) {
-        cubo = new JLabel();
-        cubo.setBounds(
+    public void iniciarTiempo(){
+        t.schedule(new TimerTask(){
+            @Override
+            public void run() {
+                juego.cambiarImagenCuboAleatorio();
+                renderCubos();
+            }
+            
+        }, 1500, juego.getDificultad());
+    }
+
+    public void renderCubo(int index) {
+        // le asigna la posicion del cubo al jlabel
+        lblCubos.get(index).setBounds(
                 juego.getCubos().get(index).getCoordenada().getX(),
                 juego.getCubos().get(index).getCoordenada().getY(),
                 110,
                 110
         );
-        cubo.setIcon(new ImageIcon(juego.getCubos().get(index).getIcono().getImage().getScaledInstance(cubo.getWidth(), cubo.getHeight(), Image.SCALE_SMOOTH)));
         
+        // le asigna el borde del cubo al jlabel
+        lblCubos.get(index).setBorder((Border) juego.getCubos().get(index).getBorde());
         
-        System.out.println(juego.getCubos().get(index).getCoordenada());
-        System.out.println(juego.getCubos().get(index).getIcono());
-        
-        return cubo;
-        
+        // le asina el icono del cubo al jlabel
+        lblCubos.get(index).setIcon(new ImageIcon(juego.getCubos().get(index).getIcono().getImage().getScaledInstance(110, 110, Image.SCALE_SMOOTH)));
     }
     
-    public void renderCubos(ArrayList<Cubo> cubos) {
+    public void renderCubos() {
         
         for (int i=0; i<juego.getCubos().size(); i++) {
-            lblCubos.add(renderCubo(new JLabel(), i));
-            add(lblCubos.get(i));
-        }
+            renderCubo(i);
+        }  
     }
     
-    public void cambiarImagenCubo()
-    {
-        Random random = new Random();
-        int cuboCambiar = random.nextInt(juego.getCubos().size());
-        juego.getCubos().get(cuboCambiar).setIcono();
-        lblCubos.get(cuboCambiar).setIcon(juego.getCubos().get(cuboCambiar).getIcono());
-        System.out.println("paso el tiempo");
+    public void renderVidas(){
+        int vidas = juego.getVidas();
+        switch(vidas)
+        {
+            case 2 -> {
+                vida1.setBackground(Color.decode("#52FF00"));
+            }
+            case 1 ->{
+                vida2.setBackground(Color.decode("#52FF00"));
+            }
+            case 0 ->{
+                vida3.setBackground(Color.decode("#52FF00"));
+            }
+                
+        }
         
     }
     
+    public void renderImagen(){
+        lblPuntuacion.setText(("Puntuacion: "+ String.format(
+                String.format("%%0%dd", 5),juego.getPuntuacion())));
+        
+        renderVidas();
+        
+        renderCubos();
+        
+    }
+    
+    private class ManejadorEventos implements KeyListener, MouseListener{
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        metodoAuxiliar();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        metodoAuxiliar();
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {}
+
+    @Override
+    public void keyReleased(KeyEvent e) {}
+    
+    public void metodoAuxiliar(){
+        if(juego.imagenesIguales()){
+            juego.cambiarBordeTodosCubos(BorderFactory.
+                createLineBorder(Color.GREEN, 4, true));
+        } else{
+            juego.cambiarBordeTodosCubos(BorderFactory.
+                createLineBorder(Color.RED, 4, true));
+        }
+        renderCubos();
+    }
+
 }
+}// fin de la clase VentanaJuego
+
+

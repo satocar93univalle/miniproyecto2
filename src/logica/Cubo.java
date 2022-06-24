@@ -4,25 +4,27 @@
  */
 package logica;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.border.Border;
 
 /**
  *
  * @author Santiago
  */
 public class Cubo {
-    private int borde;
+    private int numImg;
+    private Border borde;
     private Coordenada coordenada;
     private ImageIcon icono;
     
     // COnstructor
     public Cubo() {
         this.icono = new ImageIcon(imgRandom());
-        this.borde = 0;
-        this.coordenada = null;
     }
       
     // métodos
@@ -31,12 +33,13 @@ public class Cubo {
     private String imgRandom() {
         Random random = new Random();
         int number = random.nextInt(12) + 1;
+        numImg = number;
         return "src/imagenes/"+number+".png";
     }
     
     @Override
     public String toString() {
-        return "{"+this.getCoordenada()+", borde:"+getColorBorde();
+        return "{"+this.getCoordenada()+", borde:";
     }
     
     
@@ -48,37 +51,33 @@ public class Cubo {
     public void setCoordenada(Coordenada coordenada) {
         this.coordenada = coordenada;
     }
-    
-    public int getBorde() {
-        return borde;
-    }
-
-    public void setBorde(int borde) {
-        this.borde = borde;
-    }
-    
-    public String getColorBorde() {
-        String color = "";
-        switch(this.borde) {
-            case 0: color = "no"; break;
-            case 1: color =  "azul"; break;
-            case 2: color = "verde"; break;
-            case 3: color = "rojo"; break;
-            
-        }
-        return color;
-    }
 
     public ImageIcon getIcono() {
         return icono;
     }
 
-    public void setIcono(String img) {
-        this.icono = new ImageIcon(getClass().getResource("/img/"+img+".png"));
+    public void setIcono(ImageIcon img) {
+        this.icono = img;
     }
     
     public void setIcono() {
         this.icono = new ImageIcon(imgRandom());
     }
-      
+
+    public Border getBorde() {
+        return borde;
+    }
+
+    public void setBorde(Border borde) {
+        this.borde = borde;
+    }
+
+    public int getNumImg() {
+        return numImg;
+    }
+
+    public void setNumImg(int numImg) {
+        this.numImg = numImg;
+    }
+
 }

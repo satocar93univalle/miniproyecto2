@@ -4,51 +4,66 @@
  */
 package logica;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.border.Border;
 
 /**
  *
  * @author Santiago
  */
 public class Juego {
-    // variables de estadisticas de juego
-    private int puntuacion = 0;
-    private int vidas = 3;
-    private int aciertos = 0;
-    private int errores = 0;
-    private int numeroDeRonda;
-    
-    // variables de logica de juego
+    // variables de instancia del juego
+    private int puntuacion;
+    private int vidas;
+    private int aciertos;
+    private int errores;
     private int dificultad;
+    private boolean rondaGanada;
     ArrayList<Cubo> cubos;
     ArrayList<Coordenada> coordenadas;
+    ArrayList<ImageIcon> imagenes;
     
     // Constructor
     
     public Juego() {
-        numeroDeRonda = 0;
+        puntuacion = 0;
+        vidas = 3;
+        aciertos = 0;
+        errores = 0;
+        dificultad = 2000;
+        rondaGanada = false;
         cubos = new ArrayList<>();
         coordenadas = new ArrayList<>();
+        imagenes = new ArrayList<>();
+        
         // inicializando los tres primeros cubos
         for (int i=0; i<3; i++) {
             cubos.add(new Cubo());
         }
-        // inicializando coordenadas
-        initCoordenadas();
         
-        asignarPosicionCubo();
-        
-        
-        
+        nuevaRonda();
     }
     
     // Métodos
-    
-    public void jugarRonda() {
+    public void nuevaRonda() {
+        if(rondaGanada && cubos.size() < 8)
+            agregarCubo();
+
+        if(!rondaGanada && cubos.size() > 3)
+            eliminarCubo();
+
+        
+        initCoordenadas();
+        initImagenes();
         asignarPosicionCubo();
+        asignarImagenCubo();
     }
     
     public void initCoordenadas() {
@@ -60,6 +75,12 @@ public class Juego {
         coordenadas.add(new Coordenada(345, 184, 110, 110, 6));
         coordenadas.add(new Coordenada(345, 306, 110, 110, 7));
         coordenadas.add(new Coordenada(345, 428, 110, 110, 8));
+    }
+    
+    public void initImagenes(){
+        for(int i=0; i<12; i++){
+            imagenes.add(new ImageIcon("src/imagenes/"+i+".png"));
+        }
     }
     
     public void asignarPosicionCubo() {
@@ -78,6 +99,80 @@ public class Juego {
         
     }
     
+    public void asignarImagenCubo(){
+        // array para almacenar 8 numeros que representan los índices de arr coordenadas
+        ArrayList<Integer> asignador = new ArrayList<>();
+        for (int i=0; i<12; i++) {
+            asignador.add(i);
+        }
+        // alternar posiciones de asignador.
+        Collections.shuffle(asignador);
+        
+        // asignar coordenadas a los cubos de manera alternada sin repetir coords.
+        for (int i=0; i<cubos.size(); i++) {
+            cubos.get(i).setIcono(imagenes.get(asignador.get(i)));
+        }
+    }
+    
+    public void agregarCubo(){
+        cubos.add(new Cubo());
+    }
+    
+    public void eliminarCubo(){
+        cubos.remove(cubos.size()-1);
+    }
+    
+    public void cambiarImagenCuboAleatorio(){
+        // cambia el icono del cubo
+        Random random = new Random();
+        int posicion = random.nextInt(cubos.size());
+        cubos.get(posicion).setIcono();
+        
+        // cambia el color de todos los bordes a null
+        cambiarBordeTodosCubos(null);
+        
+        // cambia el borde del cubo
+        cubos.get(posicion).setBorde(BorderFactory.
+                createLineBorder(Color.CYAN, 4, true));
+    }
+    
+    public void cambiarBordeTodosCubos(Border borde){
+        for(int i=0 ; i<cubos.size() ; i++){
+            cubos.get(i).setBorde(borde);
+        }
+    }
+    
+    public void ganarRonda(){
+        puntuacion += 5;
+        aciertos++;
+        cambiarBordeTodosCubos( BorderFactory.
+                createLineBorder(Color.GREEN, 4, true));
+        rondaGanada = true;
+    }
+    
+    public void perderRonda(){
+        errores--;
+        vidas--;
+        cambiarBordeTodosCubos(BorderFactory.
+                createLineBorder(Color.RED, 4, true));
+        rondaGanada = true;
+    }
+    
+    public boolean imagenesIguales(){
+        boolean aux = false;
+        
+        for(int i=0; i<cubos.size() ; i++)
+        {
+            for(int j=i+1; j<cubos.size(); j++)
+            {
+                if (cubos.get(i).getNumImg() == cubos.get(j).getNumImg()) {
+                    aux = true;
+                    break;
+                } 
+            }
+        }
+        return aux;
+    }
     
     // Getters y Setters
     
@@ -87,14 +182,6 @@ public class Juego {
 
     public void setDificultad(int dificultad) {
         this.dificultad = dificultad;
-    }
-
-    public int getNumeroDeRonda() {
-        return numeroDeRonda;
-    }
-
-    public void setNumeroDeRonda(int numeroDeRonda) {
-        this.numeroDeRonda = numeroDeRonda;
     }
 
     public int getPuntuacion() {
@@ -144,6 +231,5 @@ public class Juego {
     public void setCoordenadas(ArrayList<Coordenada> coordenadas) {
         this.coordenadas = coordenadas;
     }
-    
     
 }   
