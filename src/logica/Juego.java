@@ -47,23 +47,22 @@ public class Juego {
         for (int i=0; i<3; i++) {
             cubos.add(new Cubo());
         }
-        
-        nuevaRonda();
     }
     
     // Métodos
     public void nuevaRonda() {
         if(rondaGanada && cubos.size() < 8)
             agregarCubo();
-
+        
         if(!rondaGanada && cubos.size() > 3)
             eliminarCubo();
 
-        
+        cambiarBordeTodosCubos(null);
         initCoordenadas();
         initImagenes();
         asignarPosicionCubo();
         asignarImagenCubo();
+        
     }
     
     public void initCoordenadas() {
@@ -78,7 +77,7 @@ public class Juego {
     }
     
     public void initImagenes(){
-        for(int i=0; i<12; i++){
+        for(int i=1; i<=12; i++){
             imagenes.add(new ImageIcon("src/imagenes/"+i+".png"));
         }
     }
@@ -155,7 +154,7 @@ public class Juego {
         vidas--;
         cambiarBordeTodosCubos(BorderFactory.
                 createLineBorder(Color.RED, 4, true));
-        rondaGanada = true;
+        rondaGanada = false;
     }
     
     public boolean imagenesIguales(){
@@ -230,6 +229,14 @@ public class Juego {
 
     public void setCoordenadas(ArrayList<Coordenada> coordenadas) {
         this.coordenadas = coordenadas;
+    }
+
+    public boolean isRondaGanada() {
+        return rondaGanada;
+    }
+
+    public void setRondaGanada(boolean rondaGanada) {
+        this.rondaGanada = rondaGanada;
     }
     
 }   

@@ -46,7 +46,7 @@ public class VentanaJuego extends JFrame{
     private JPanel panel;
     private ArrayList<JLabel> lblCubos;
 
-    private Timer t;
+    private ArrayList<Timer> timers;
     
     private Juego juego;
     
@@ -72,8 +72,8 @@ public class VentanaJuego extends JFrame{
         
         // Puntuación
         lblPuntuacion = new JLabel("Puntuacion: "+ String.format(
-                String.format("%%0%dd", 5),juego.getPuntuacion()));
-        lblPuntuacion.setBounds(30, 30, 255, 39);
+                String.format("%%0%dd", 4),juego.getPuntuacion()));
+        lblPuntuacion.setBounds(30, 30, 300, 39);
         lblPuntuacion.setFont(new Font("Arial", 1, 32));
         lblPuntuacion.setForeground(Color.decode("#8ECAE6"));
         panel.add(lblPuntuacion);
@@ -123,21 +123,44 @@ public class VentanaJuego extends JFrame{
         btnElegir.addMouseListener(new ManejadorEventos());
         
         // creando el timer
-        t = new Timer();
-        iniciarTiempo();
+        timers = new ArrayList<>();
+        timers.add(new Timer());
+        iniciarRonda();
         
         add(panel);
     }
     
-    public void iniciarTiempo(){
-        t.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                juego.cambiarImagenCuboAleatorio();
-                renderCubos();
-            }
-            
-        }, 1500, juego.getDificultad());
+    public void iniciarRonda(){
+        juego.nuevaRonda();
+        renderImagen();
+        reiniciarTiempo();
+    }
+    
+    public void reiniciarTiempo(){
+        timers.get(0).cancel();
+        timers.remove(0);
+        timers.add(new Timer());
+        timers.get(0).schedule(new TimerTask(){
+                @Override
+                public void run() {
+                    juego.cambiarImagenCuboAleatorio();
+                    renderCubos();
+                }
+
+            }, 1500, 1500);
+    }
+    
+    public void pausarTiempoAntesDeNuevaRonda(){
+        timers.get(0).cancel();
+        timers.remove(0);
+        timers.add(new Timer());
+        timers.get(0).schedule(new TimerTask(){
+                @Override
+                public void run() {
+                    iniciarRonda();
+                }
+
+            }, 2000, 1);
     }
 
     public void renderCubo(int index) {
@@ -168,13 +191,13 @@ public class VentanaJuego extends JFrame{
         switch(vidas)
         {
             case 2 -> {
-                vida1.setBackground(Color.decode("#52FF00"));
+                vida1.setBackground(Color.RED);
             }
             case 1 ->{
-                vida2.setBackground(Color.decode("#52FF00"));
+                vida2.setBackground(Color.RED);
             }
             case 0 ->{
-                vida3.setBackground(Color.decode("#52FF00"));
+                vida3.setBackground(Color.RED);
             }
                 
         }
@@ -183,7 +206,7 @@ public class VentanaJuego extends JFrame{
     
     public void renderImagen(){
         lblPuntuacion.setText(("Puntuacion: "+ String.format(
-                String.format("%%0%dd", 5),juego.getPuntuacion())));
+                String.format("%%0%dd", 4),juego.getPuntuacion())));
         
         renderVidas();
         
@@ -222,14 +245,15 @@ public class VentanaJuego extends JFrame{
     public void keyReleased(KeyEvent e) {}
     
     public void metodoAuxiliar(){
+        
         if(juego.imagenesIguales()){
-            juego.cambiarBordeTodosCubos(BorderFactory.
-                createLineBorder(Color.GREEN, 4, true));
+            juego.ganarRonda();
         } else{
-            juego.cambiarBordeTodosCubos(BorderFactory.
-                createLineBorder(Color.RED, 4, true));
+            juego.perderRonda();
         }
+        
         renderCubos();
+        pausarTiempoAntesDeNuevaRonda();
     }
 
 }
