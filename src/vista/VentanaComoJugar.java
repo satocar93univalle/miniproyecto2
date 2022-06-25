@@ -149,7 +149,7 @@ public class VentanaComoJugar extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == lblRegresar) {
-                lblRegresar.setForeground(Color.decode("#FF7A00"));
+                lblRegresar.setForeground(Color.decode("#52FF00"));
                 // PENDIENTE: escribir código en funcion regresar();
                 regresar();
             }
@@ -207,8 +207,11 @@ public class VentanaComoJugar extends JFrame {
             
         }
         
-        public void regresar() {
-            
+        
+    }
+    public void regresar() {
+            VentanaInicio ventanaInicio = new VentanaInicio();
+            this.dispose();
         }
         
         public void refrescar() {
@@ -251,5 +254,4 @@ public class VentanaComoJugar extends JFrame {
             refrescar();
             System.out.println("Numero de instrucción: "+instruccion.getNumeroInstruccion());
         }
-    }
 }

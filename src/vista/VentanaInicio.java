@@ -144,13 +144,13 @@ public class VentanaInicio extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == lblComoJugar) {
-                lblComoJugar.setForeground(Color.decode("#FF7A00"));
+                lblComoJugar.setForeground(Color.decode("#52FF00"));
             }
             if (e.getSource() == lblJugar) {
-                lblJugar.setForeground(Color.decode("#FF7A00"));
+                lblJugar.setForeground(Color.decode("#52FF00"));
             }
             if (e.getSource() == lblParaQueSirve) {
-                lblParaQueSirve.setForeground(Color.decode("#FF7A00"));
+                lblParaQueSirve.setForeground(Color.decode("#52FF00"));
             }
         }
 
@@ -177,7 +177,6 @@ public class VentanaInicio extends JFrame {
             if (e.getSource() == lblJugar) {
                 lblJugar.setForeground(Color.decode("#FFB703"));
                 lblJugar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                System.out.println("evento");
             }
         }
 
