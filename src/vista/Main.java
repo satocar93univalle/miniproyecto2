@@ -16,9 +16,12 @@ public class Main {
     public static void main(String[] args) {
         // Cubo unCubo = new Cubo();
         // VentanaJuego pruebaVentanaJuego = new VentanaJuego();
-         VentanaComoJugar pruebaVentanaComoJugar = new VentanaComoJugar();
+        // VentanaComoJugar pruebaVentanaComoJugar = new VentanaComoJugar();
         // VentanaInicio pruebaVentanaInicio = new VentanaInicio();
         // VentanaParaQueSirve pruevaVentanaParaQueSirve = new VentanaParaQueSirve();
+        // VentanaEstadisticas pruebaVentanaEstadisticas = new VentanaEstadisticas();
+        
+        VentanaInicio ventanaInicio = new VentanaInicio();
         
     }
 }

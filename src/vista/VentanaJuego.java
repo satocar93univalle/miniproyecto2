@@ -131,6 +131,7 @@ public class VentanaJuego extends JFrame{
     }
     
     public void iniciarRonda(){
+        mostrarEstadisticas();
         juego.nuevaRonda();
         limpiearLabelCubos();
         renderImagen();
@@ -246,6 +247,11 @@ public class VentanaJuego extends JFrame{
         }
     }
     
+    public void mostrarEstadisticas() {
+        if (juego.getVidas() == 0) {
+            VentanaEstadisticas ventana = new VentanaEstadisticas(juego);
+        }
+    }
     
     private class ManejadorEventos implements KeyListener, MouseListener{
 

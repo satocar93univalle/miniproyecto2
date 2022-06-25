@@ -181,11 +181,9 @@ public class VentanaComoJugar extends JFrame {
             // Flechas izquierda y derecha cambian cursor y se muestra borde
             if (e.getSource() == lblFlechaDer) {
                 lblFlechaDer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                lblFlechaDer.setBorder(BorderFactory.createLineBorder(Color.decode("#8ECAE6"), 1, true));
             }    
             if (e.getSource() == lblFlechaIzq) {
                 lblFlechaIzq.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-                lblFlechaIzq.setBorder(BorderFactory.createLineBorder(Color.decode("#8ECAE6"), 1, true));
             }
 
             

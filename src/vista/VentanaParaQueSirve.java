@@ -69,7 +69,7 @@ public class VentanaParaQueSirve extends JFrame {
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_JUSTIFIED);
         lblTexto.setParagraphAttributes(center, false);
         lblTexto.setBounds(53, 136, 695, 361);
-        lblTexto.setFont(new Font("Arial", 0, 32));
+        lblTexto.setFont(new Font("Arial", 0, 24));
         lblTexto.setForeground(Color.WHITE);
         lblTexto.setOpaque(false);
         lblTexto.setEditable(false);

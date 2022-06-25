@@ -145,12 +145,15 @@ public class VentanaInicio extends JFrame {
         public void mouseClicked(MouseEvent e) {
             if (e.getSource() == lblComoJugar) {
                 lblComoJugar.setForeground(Color.decode("#52FF00"));
+                comoJugar();
             }
             if (e.getSource() == lblJugar) {
                 lblJugar.setForeground(Color.decode("#52FF00"));
+                jugar();
             }
             if (e.getSource() == lblParaQueSirve) {
                 lblParaQueSirve.setForeground(Color.decode("#52FF00"));
+                paraQueSirve();
             }
         }
 
@@ -193,5 +196,18 @@ public class VentanaInicio extends JFrame {
             }
         }
     
+    }
+    
+    public void comoJugar() {
+        VentanaComoJugar ventanaComoJugar = new VentanaComoJugar();
+        this.dispose();
+    }
+    public void jugar() {
+        VentanaJuego juego = new VentanaJuego();
+        this.dispose();
+    }
+    public void paraQueSirve() {
+        VentanaParaQueSirve ventanaParaQueSirve = new VentanaParaQueSirve();
+        this.dispose();
     }
 }
