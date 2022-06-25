@@ -6,6 +6,7 @@ package vista;
 
 import javax.swing.ImageIcon;
 import logica.Cubo;
+import logica.Instrucciones;
 
 /**
  *
@@ -13,7 +14,8 @@ import logica.Cubo;
  */
 public class Main {
     public static void main(String[] args) {
-        //Cubo unCubo = new Cubo();
-        VentanaJuego pruebaVentanaJuego = new VentanaJuego();
+        // Cubo unCubo = new Cubo();
+        // VentanaJuego pruebaVentanaJuego = new VentanaJuego();
+        VentanaComoJugar pruebaVentanaComoJugar = new VentanaComoJugar();
     }
 }

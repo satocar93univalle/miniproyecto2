@@ -249,36 +249,36 @@ public class VentanaJuego extends JFrame{
     
     private class ManejadorEventos implements KeyListener, MouseListener{
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        ComparacionBotonPresionado();
-    }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            ComparacionBotonPresionado();
+        }
 
-    @Override
-    public void mousePressed(MouseEvent e) {}
+        @Override
+        public void mousePressed(MouseEvent e) {}
 
-    @Override
-    public void mouseReleased(MouseEvent e) {}
+        @Override
+        public void mouseReleased(MouseEvent e) {}
 
-    @Override
-    public void mouseEntered(MouseEvent e) {}
+        @Override
+        public void mouseEntered(MouseEvent e) {}
 
-    @Override
-    public void mouseExited(MouseEvent e) {}
+        @Override
+        public void mouseExited(MouseEvent e) {}
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        ComparacionBotonPresionado();
-    }
+        @Override
+        public void keyTyped(KeyEvent e) {
+            ComparacionBotonPresionado();
+        }
 
-    @Override
-    public void keyPressed(KeyEvent e) {}
+        @Override
+        public void keyPressed(KeyEvent e) {}
 
-    @Override
-    public void keyReleased(KeyEvent e) {}
+        @Override
+        public void keyReleased(KeyEvent e) {}
     
     
-}
+    }
 }// fin de la clase VentanaJuego
 
 

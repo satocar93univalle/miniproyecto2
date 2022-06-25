@@ -58,13 +58,11 @@ public class Juego {
         
         else if(cubos.size() > 3) {
             eliminarCubo();
-<<<<<<< HEAD
-        }    
+            }    
         
-=======
+
        
         rondaAnteriorIguales = false;
->>>>>>> 1026c0067dd047f6215e6727748cb05d362d6232
         cambiarBordeTodosCubos(null);
         initCoordenadas();
         initImagenes();
