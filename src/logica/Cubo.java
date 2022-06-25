@@ -37,7 +37,7 @@ public class Cubo {
     
     @Override
     public String toString() {
-        return "{"+this.getCoordenada()+", borde:";
+        return "{Icono:"+this.getIcono()+", Coordenada: "+this.getCoordenada()+", borde:"+this.getBorde()+"}";
     }
     
     

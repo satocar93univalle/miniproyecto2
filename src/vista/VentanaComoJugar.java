@@ -53,7 +53,6 @@ public class VentanaComoJugar extends JFrame {
         initComponents();
         setVisible(true);
         
-        System.out.println("Icono actual: "+instruccion.getIconoActual());
     }
     
     public void initComponents() {
@@ -102,6 +101,7 @@ public class VentanaComoJugar extends JFrame {
         lblInstruccion.setFont(new Font("Arial", 0, 24));
         lblInstruccion.setForeground(Color.WHITE);
         lblInstruccion.setOpaque(false);
+        lblInstruccion.setEnabled(false);
         panel.add(lblInstruccion);
         
         // Regresar
@@ -148,9 +148,8 @@ public class VentanaComoJugar extends JFrame {
         
         @Override
         public void mouseClicked(MouseEvent e) {
-            // evento para regresar
             if (e.getSource() == lblRegresar) {
-                lblRegresar.setForeground(Color.decode("#52FF00"));
+                lblRegresar.setForeground(Color.decode("#FF7A00"));
                 // PENDIENTE: escribir código en funcion regresar();
                 regresar();
             }
