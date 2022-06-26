@@ -133,7 +133,7 @@ public class VentanaJuego extends JFrame{
     public void iniciarRonda(){
         mostrarEstadisticas();
         juego.nuevaRonda();
-        limpiearLabelCubos();
+        limpiarLabelCubos();
         renderImagen();
         reiniciarTiempo();
     }
@@ -240,12 +240,13 @@ public class VentanaJuego extends JFrame{
         pausarTiempoAntesDeNuevaRonda();
     }
     
-    public void limpiearLabelCubos(){
+    public void limpiarLabelCubos(){
         for(int i=0 ; i<lblCubos.size() ; i++){
             lblCubos.get(i).setIcon(new ImageIcon(""));
             lblCubos.get(i).setBorder(null);
         }
     }
+<<<<<<< HEAD
     
     public void mostrarEstadisticas() {
         if (juego.getVidas() == 0) {
@@ -253,6 +254,9 @@ public class VentanaJuego extends JFrame{
         }
     }
     
+=======
+      
+>>>>>>> 03b1f1f02e8592ac91ab0fd7cb7a2a2cbe31d3c7
     private class ManejadorEventos implements KeyListener, MouseListener{
 
         @Override
